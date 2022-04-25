@@ -31,10 +31,7 @@ module.exports = {
             // HTML
             {
                 test: /\.(html)$/,
-                use:
-                [
-                    'html-loader'
-                ]
+                use: ['html-loader']
             },
 
             // JS
@@ -60,29 +57,38 @@ module.exports = {
             // Images
             {
                 test: /\.(jpg|png|gif|svg)$/,
-                type: 'asset/resource',
-                generator:
-                {
-                    filename: 'assets/images/[hash][ext]'
-                }
+                use:
+                [
+                    {
+                        loader: 'file-loader',
+                        options:
+                        {
+                            outputPath: 'assets/images/'
+                        }
+                    }
+                ]
             },
 
             // Fonts
             {
                 test: /\.(ttf|eot|woff|woff2)$/,
-                type: 'asset/resource',
-                generator:
-                {
-                    filename: 'assets/fonts/[hash][ext]'
-                }
+                use:
+                [
+                    {
+                        loader: 'file-loader',
+                        options:
+                        {
+                            outputPath: 'assets/fonts/'
+                        }
+                    }
+                ]
             },
 
             // Shaders
             {
                 test: /\.(glsl|vs|fs|vert|frag)$/,
                 exclude: /node_modules/,
-                use:
-                [
+                use: [
                     'raw-loader',
                     'glslify-loader'
                 ]

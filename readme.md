@@ -1,9 +1,4 @@
-# Three.js - Template - Complex
-
-Bruno Simon Organic Sphere
-https://github.com/brunosimon/organic-sphere
-
-🚧 This template is under construction
+# Three.js - Template - Simple
 
 ## Setup
 Download [Node.js](https://nodejs.org/en/download/).
