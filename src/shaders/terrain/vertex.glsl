@@ -14,7 +14,7 @@ float getElevation(vec3 _position) {
          0.0
     )) * 0.2;
    
-    elevation *= 2.;
+    elevation *= 1.5;
 
     return elevation;
 }

@@ -57,7 +57,11 @@ controls.enableDamping = true
  const terrain ={}
 
  terrain.texture = {}
- terrain.texture.visible = false
+ terrain.texture.lineCount = 5
+ terrain.texture.bigLineWidth = 0.08
+ terrain.texture.smallLineWidth = 0.01
+ terrain.texture.smallLineAlpha = 0.5 
+ terrain.texture.smallLineWidth = 0.01
  terrain.texture.width = 1
  terrain.texture.height = 128
  terrain.texture.canvas = document.createElement('canvas')
@@ -66,23 +70,49 @@ controls.enableDamping = true
  terrain.texture.canvas.style.position = 'fixed'
  terrain.texture.canvas.style.top = 0
  terrain.texture.canvas.style.left = 0
- terrain.texture.context = terrain.texture.canvas.getContext('2d')
+ terrain.texture.canvas.style.zIndex = 1
  document.body.append(terrain.texture.canvas)
 
- terrain.texture.context.fillStyle = 'purple'
- terrain.texture.context.fillRect(0, Math.round(terrain.texture.height * 0), terrain.texture.width, 8)
- 
- terrain.texture.context.fillStyle = 'red'
- terrain.texture.context.fillRect(0, Math.round(terrain.texture.height * 0.4), terrain.texture.width, 8)
+ terrain.texture.context = terrain.texture.canvas.getContext('2d')
 
- terrain.texture.context.fillStyle = 'blue'
- terrain.texture.context.fillRect(0, Math.round(terrain.texture.height * 0.8), terrain.texture.width, 8)
  terrain.texture.instance = new THREE.CanvasTexture(terrain.texture.canvas)
  terrain.texture.instance.wrapS = THREE.RepeatWrapping
  terrain.texture.instance.wrapT = THREE.RepeatWrapping
  terrain.texture.instance.magFilter = THREE.NearestFilter
  
- 
+
+ terrain.texture.update = () => {
+
+    terrain.texture.context.clearRect(0, 0, terrain.texture.width, terrain.texture.height)
+
+    const actualBigLineWidth = Math.round(terrain.texture.height * terrain.texture.bigLineWidth)
+    terrain.texture.context.globalAlpha = 1
+    terrain.texture.context.fillStyle = '#ffffff'
+
+    terrain.texture.context.fillRect(
+        0,
+        0,
+        terrain.texture.width,
+        actualBigLineWidth
+    )
+
+    const actualSmallLineWidth = Math.round(terrain.texture.height * terrain.texture.smallLineWidth)
+    const smallLinesCount = terrain.texture.lineCount - 1
+
+    for(let i = 0; i < smallLinesCount; i++) {
+        terrain.texture.context.globalAlpha = terrain.texture.smallLineAlpha
+        terrain.texture.context.fillStyle = '#00ffff'
+        terrain.texture.context.fillRect(
+            0,
+            actualBigLineWidth + Math.round((terrain.texture.height - actualBigLineWidth) / terrain.texture.lineCount) * (i + 1),
+            terrain.texture.width,
+            actualSmallLineWidth
+        )
+    }
+    terrain.texture.instance.needsUpdate = true
+ }
+
+ terrain.texture.update()
 
  terrain.geometry = new THREE.PlaneGeometry(1, 1, 1000, 1000)
  terrain.geometry.rotateX(-Math.PI * 0.5)
