@@ -117,16 +117,19 @@ controls.enableDamping = true
  terrain.geometry = new THREE.PlaneGeometry(1, 1, 1000, 1000)
  terrain.geometry.rotateX(-Math.PI * 0.5)
 
+ terrain.uniforms = {
+    uTexture: { value: terrain.texture.instance },
+    uElevation: { value: 2 },
+    uTime: { value: 3 }
+ }
+
  terrain.material = new THREE.ShaderMaterial({
      transparent: true,
-     blending: THREE.AdditiveBlending,
+     //blending: THREE.AdditiveBlending,
      side: THREE.DoubleSide,
      vertexShader: terrainVertexShader,
      fragmentShader: terrainFragmentShader,
-     uniforms: {
-         uTexture: { value: terrain.texture.instance },
-         uElevation: { value: 3 }
-     }
+     uniforms: terrain.uniforms
  })
 
  terrain.mesh = new THREE.Mesh(terrain.geometry, terrain.material)
@@ -157,6 +160,9 @@ const tick = () =>
     const elapsedTime = clock.getElapsedTime()
     const deltaTime = elapsedTime - lastElapsedTime
     lastElapsedTime = elapsedTime
+
+    terrain.uniforms.uTime.value = elapsedTime
+   
 
     // Update controls
     controls.update()

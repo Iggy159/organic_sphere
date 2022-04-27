@@ -1,17 +1,18 @@
 #pragma glslify: noise = require('glsl-noise/simplex/3d');
 varying float vElevation;
+uniform float uTime;
 
 float getElevation(vec3 _position) {
 
     float elevation = 0.0;
     elevation += noise(vec3(
         _position.xz * 0.3,
-         0.0
+         uTime * 0.1
     )) * 0.4;
 
     elevation += noise(vec3(
         (_position.xz + 200.0) * 1.0,
-         0.0
+         uTime * 0.1
     )) * 0.2;
    
     elevation *= 1.5;

@@ -1,6 +1,7 @@
 uniform sampler2D uTexture;
 
 varying float vElevation;
+uniform float uTime;
 
 void main() {
 
