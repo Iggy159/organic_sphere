@@ -57,7 +57,7 @@ controls.enableDamping = true
  const terrain ={}
 
  terrain.texture = {}
- terrain.texture.lineCount = 5
+ terrain.texture.lineCount = 10
  terrain.texture.bigLineWidth = 0.08
  terrain.texture.smallLineWidth = 0.01
  terrain.texture.smallLineAlpha = 0.5 
@@ -87,7 +87,7 @@ controls.enableDamping = true
 
     const actualBigLineWidth = Math.round(terrain.texture.height * terrain.texture.bigLineWidth)
     terrain.texture.context.globalAlpha = 1
-    terrain.texture.context.fillStyle = '#ffffff'
+    terrain.texture.context.fillStyle = '#d000ff'
 
     terrain.texture.context.fillRect(
         0,
@@ -101,7 +101,7 @@ controls.enableDamping = true
 
     for(let i = 0; i < smallLinesCount; i++) {
         terrain.texture.context.globalAlpha = terrain.texture.smallLineAlpha
-        terrain.texture.context.fillStyle = '#00ffff'
+        terrain.texture.context.fillStyle = '#8b00cc'
         terrain.texture.context.fillRect(
             0,
             actualBigLineWidth + Math.round((terrain.texture.height - actualBigLineWidth) / terrain.texture.lineCount) * (i + 1),
@@ -114,13 +114,13 @@ controls.enableDamping = true
 
  terrain.texture.update()
 
- terrain.geometry = new THREE.PlaneGeometry(1, 1, 1000, 1000)
+ terrain.geometry = new THREE.PlaneGeometry(1, 1, 500, 500)
  terrain.geometry.rotateX(-Math.PI * 0.5)
 
  terrain.uniforms = {
     uTexture: { value: terrain.texture.instance },
-    uElevation: { value: 2 },
-    uTime: { value: 3 }
+    uElevation: { value: 0 },
+    uTime: { value: 0 }
  }
 
  terrain.material = new THREE.ShaderMaterial({
@@ -144,7 +144,7 @@ const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     antialias: true,
 })
-renderer.setClearColor(0x222222, 1)
+renderer.setClearColor(0x111111, 1)
 renderer.outputEncoding = THREE.sRGBEncoding
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
