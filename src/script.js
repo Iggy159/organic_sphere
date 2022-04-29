@@ -51,15 +51,29 @@ scene.add(camera)
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
 
+// const skySphere = {}
+// skySphere.geometry = new THREE.SphereBufferGeometry(15, 64, 64)
+// skySphere.geometry.rotateX(-Math.PI * 0.5)
+
+
+// skySphere.material = new THREE.ShaderMaterial({ 
+//     wireframe: true,
+//     color: 'red'
+// })
+
+
+// skySphere.mesh = new THREE.Mesh(skySphere.geometry, skySphere.material)
+// scene.add(skySphere.mesh)
+
 /**
  
  */
  const terrain ={}
 
  terrain.texture = {}
- terrain.texture.lineCount = 10
- terrain.texture.bigLineWidth = 0.08
- terrain.texture.smallLineWidth = 0.01
+ terrain.texture.lineCount = 5
+ terrain.texture.bigLineWidth = 0.13
+ terrain.texture.smallLineWidth = 0.06
  terrain.texture.smallLineAlpha = 0.5 
  terrain.texture.smallLineWidth = 0.01
  terrain.texture.width = 1
@@ -136,6 +150,7 @@ controls.enableDamping = true
  terrain.mesh.scale.set(10,10,10)
  scene.add(terrain.mesh)
 
+
 /**
  * Renderer
  */
@@ -162,8 +177,7 @@ const tick = () =>
     lastElapsedTime = elapsedTime
 
     terrain.uniforms.uTime.value = elapsedTime
-   
-
+    
     // Update controls
     controls.update()
 
